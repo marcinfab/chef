@@ -11,4 +11,6 @@ chef_server_url          "https://api.opscode.com/organizations/cinnexops"
 cache_type               'BasicFile'
 cache_options( :path => "#{ENV['HOME']}/.chef/checksums" )
 cookbook_path            ["#{current_dir}/../cookbooks"]
-
+cookbook_copyright "Cinnex OPS"
+cookbook_license "apachev2"
+cookbook_email "email@wp.pl"

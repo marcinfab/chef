@@ -66,11 +66,17 @@ GEM
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.3)
+    foodcritic (4.0.0)
+      erubis
+      gherkin (~> 2.11)
+      nokogiri (~> 1.5)
+      rake
+      rufus-lru (~> 1.0)
+      treetop (~> 1.4)
+      yajl-ruby (~> 1.1)
+    gherkin (2.12.2)
+      multi_json (~> 1.3)
     git (1.2.6)
-    grit (2.5.0)
-      diff-lcs (~> 1.1)
-      mime-types (~> 1.15)
-      posix-spawn (~> 0.3.6)
     hashie (2.1.1)
     highline (1.6.21)
     hitimes (1.2.1)
@@ -82,6 +88,7 @@ GEM
       git
     method_source (0.8.2)
     mime-types (1.25.1)
+    mini_portile (0.6.0)
     minitar (0.5.4)
     mixlib-authentication (1.3.0)
       mixlib-log
@@ -89,6 +96,7 @@ GEM
     mixlib-config (2.1.0)
     mixlib-log (1.6.0)
     mixlib-shellout (1.4.0)
+    multi_json (1.10.1)
     multipart-post (2.0.0)
     net-http-persistent (2.9.4)
     net-ssh (2.9.1)
@@ -98,6 +106,8 @@ GEM
       net-ssh (>= 2.6.5)
       net-ssh-gateway (>= 1.2.0)
     nio4r (1.0.0)
+    nokogiri (1.6.3.1)
+      mini_portile (= 0.6.0)
     octokit (3.1.0)
       sawyer (~> 0.5.3)
     ohai (7.0.4)
@@ -109,12 +119,13 @@ GEM
       mixlib-shellout (~> 1.2)
       systemu (~> 2.5.2)
       yajl-ruby
-    posix-spawn (0.3.8)
+    polyglot (0.3.5)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
     rack (1.5.2)
+    rake (10.3.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     retryable (1.3.5)
@@ -135,6 +146,7 @@ GEM
       retryable
       semverse (~> 1.1)
       varia_model (~> 0.3)
+    rufus-lru (1.0.5)
     sawyer (0.5.4)
       addressable (~> 2.3.5)
       faraday (~> 0.8, < 0.10)
@@ -147,6 +159,8 @@ GEM
     thor (0.19.1)
     timers (2.0.0)
       hitimes
+    treetop (1.5.3)
+      polyglot (~> 0.3)
     varia_model (0.3.2)
       buff-extensions (~> 0.2)
       hashie (>= 2.0.2)
@@ -157,5 +171,5 @@ PLATFORMS
 
 DEPENDENCIES
   berkshelf
-  grit
+  foodcritic
   knife-playground

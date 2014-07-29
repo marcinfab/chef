@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: my_cookbook
-# Recipe:: default
+# Cookbook Name:: apache2
+# Recipe:: mod_xsendfile
 #
-# Copyright 2014, Cinnex OPS
+# Copyright 2011-2013, CustomInk, LLC.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,13 +16,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe 'build-essential'
-include_recipe 'apache2'
-include_recipe 'chef-client'
-include_recipe 'apt'
-include_recipe 'ntp'
 
-template '/tmp/greeting.txt' do
-	source 'greeting.erb'
-	variables greeting: 'Hello!'
+case node['platform_family']
+when 'debian'
+  package 'libapache2-mod-xsendfile'
+when 'rhel', 'fedora'
+  package 'mod_xsendfile' do
+    notifies :run, 'execute[generate-module-list]', :immediately
+  end
 end
+
+file "#{node['apache']['dir']}/conf.d/xsendfile.conf" do
+  action :delete
+  backup false
+end
+
+apache_module 'xsendfile'

@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: my_cookbook
-# Recipe:: default
+# Cookbook Name:: apache2
+# Recipe:: include
 #
-# Copyright 2014, Cinnex OPS
+# Copyright 2012-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,13 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe 'build-essential'
-include_recipe 'apache2'
-include_recipe 'chef-client'
-include_recipe 'apt'
-include_recipe 'ntp'
 
-template '/tmp/greeting.txt' do
-	source 'greeting.erb'
-	variables greeting: 'Hello!'
+apache_module 'include' do
+  conf true
 end

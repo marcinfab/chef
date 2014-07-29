@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: my_cookbook
-# Recipe:: default
+# Cookbook Name:: apache2
+# Recipe:: logrotate
 #
-# Copyright 2014, Cinnex OPS
+# Copyright 2012, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,13 +16,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe 'build-essential'
-include_recipe 'apache2'
-include_recipe 'chef-client'
-include_recipe 'apt'
-include_recipe 'ntp'
 
-template '/tmp/greeting.txt' do
-	source 'greeting.erb'
-	variables greeting: 'Hello!'
+apache_service = service 'apache2' do
+  action :nothing
+end
+
+begin
+  include_recipe 'logrotate'
+rescue
+  Chef::Log.warn('The apache::logrotate recipe requires the logrotate cookbook. Install the cookbook with `knife cookbook site install logrotate`.')
+end
+logrotate_app apache_service.service_name do
+  path node['apache']['log_dir']
 end

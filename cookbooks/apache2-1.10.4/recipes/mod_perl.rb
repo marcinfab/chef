@@ -1,8 +1,10 @@
 #
-# Cookbook Name:: my_cookbook
-# Recipe:: default
+# Cookbook Name:: apache2
+# Recipe:: perl
 #
-# Copyright 2014, Cinnex OPS
+# adapted from the mod_python recipe by Jeremy Bingham
+#
+# Copyright 2008-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,13 +18,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe 'build-essential'
-include_recipe 'apache2'
-include_recipe 'chef-client'
-include_recipe 'apt'
-include_recipe 'ntp'
 
-template '/tmp/greeting.txt' do
-	source 'greeting.erb'
-	variables greeting: 'Hello!'
+case node['platform_family']
+when 'debian'
+  %w[libapache2-mod-perl2 libapache2-request-perl apache2-mpm-prefork].each do |pkg|
+    package pkg
+  end
+when 'rhel', 'fedora'
+  package 'mod_perl' do
+    notifies :run, 'execute[generate-module-list]', :immediately
+  end
+
+  package 'perl-libapreq2'
 end
+
+file "#{node['apache']['dir']}/conf.d/perl.conf" do
+  action :delete
+  backup false
+end
+
+apache_module 'perl'

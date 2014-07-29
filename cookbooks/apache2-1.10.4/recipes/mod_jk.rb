@@ -1,8 +1,9 @@
 #
-# Cookbook Name:: my_cookbook
-# Recipe:: default
+# Cookbook Name:: apache2
+# Recipe:: jk
 #
-# Copyright 2014, Cinnex OPS
+# Copyright 2013, Mike Babineau <michael.babineau@gmail.com>
+# Copyright 2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,13 +17,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe 'build-essential'
-include_recipe 'apache2'
-include_recipe 'chef-client'
-include_recipe 'apt'
-include_recipe 'ntp'
 
-template '/tmp/greeting.txt' do
-	source 'greeting.erb'
-	variables greeting: 'Hello!'
+package 'libapache2-mod-jk' do
+  case node['platform_family']
+  when 'rhel', 'fedora', 'suse'
+    package_name 'mod_jk'
+  else
+    package_name 'libapache2-mod-jk'
+  end
 end
+
+apache_module 'jk'

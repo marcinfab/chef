@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: my_cookbook
+# Cookbook Name:: my_cookbook_test
 # Recipe:: default
 #
 # Copyright 2014, Cinnex OPS
@@ -16,6 +16,3 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-file '/tmp/greeting.txt' do
-	content node['my_cookbook'[' greeting']
-end
